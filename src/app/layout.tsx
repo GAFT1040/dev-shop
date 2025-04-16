@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Provider } from "@/components/ui/provider";
 import Header from "@/components/Header";
 import AuthProvider from "@/contexts/AuthContext";
+import { ToastContainer } from "react-toastify";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,6 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <ToastContainer />
         <Provider>
           <AuthProvider>{children}</AuthProvider>
         </Provider>
