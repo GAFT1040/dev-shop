@@ -9,7 +9,7 @@ const ProductsCard: React.FC<Product> = ({
   img_src,
   value,
   name,
-  categori_id,
+  category_id,
   id,
 }) => {
   const { addToCart } = useCart();
