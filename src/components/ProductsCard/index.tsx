@@ -34,7 +34,7 @@ const ProductsCard: React.FC<Product> = ({
           w="100%"
           bg="white"
           color="black"
-          onClick={() => addToCart({ img_src, value, name, categori_id, id })}
+          onClick={() => addToCart({ img_src, value, name, category_id, id })}
         >
           Adicionar ao Carrinho
         </Button>
