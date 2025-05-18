@@ -58,12 +58,21 @@ export default function Home() {
           {categories?.map((item, index) => (
             <ChakraLink
               as={Link}
-              href="/"
+              href={`/categories/${item.id}`}
               key={index}
               textAlign="center"
               flexDir="column"
             >
-              <Box w="150px" h="200px" bg="gray.300" borderRadius="md"></Box>
+              <Box w="150px" h="200px" overflow="hidden">
+                <Image
+                  src={item.img_src}
+                  w="150px"
+                  h="200px"
+                  transition="all .3s ease"
+                  borderRadius="md"
+                  _hover={{ transform: "scale(1.1)" }}
+                ></Image>
+              </Box>
               <Text> {item.category_name} </Text>
             </ChakraLink>
           ))}

@@ -31,7 +31,7 @@ const Header = () => {
       <Heading as="h1">Dev Shop</Heading>
       <Flex as="ul" gap="1rem" display={{ base: "none", sm: "flex" }}>
         <li>
-          <Link href="/">Caregorias</Link>
+          <Link href="/categories/all">Caregorias</Link>
         </li>
         <li>
           <Link href="/">Home</Link>
