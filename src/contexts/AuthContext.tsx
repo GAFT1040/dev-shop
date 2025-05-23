@@ -14,6 +14,7 @@ import {
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import api from "@/services/api";
+import { AxiosError } from "axios";
 
 const AuthContext = createContext<AuthContextInterface>(
   {} as AuthContextInterface
@@ -36,8 +37,16 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           `Bearer ${JSON.parse(token)}`;
       }
       if (userId) {
-        const response = await getUser(Number(JSON.parse(userId)));
-        setUser(response);
+        try {
+          const response = await getUser(Number(JSON.parse(userId)));
+          setUser(response);
+        } catch (error: any) {
+          if (error.response.status === 401) {
+            toast.error("Sessão expirada, faça login novamente");
+            setUser(null);
+            localStorage.clear();
+          }
+        }
       }
     };
 
