@@ -23,6 +23,7 @@ import { IoIosSearch } from "react-icons/io";
 export default function Home() {
   const [categories, setCategories] = useState<Category[]>([]); //estado do componente
   const [products, setProducts] = useState<Product[]>([]); //estado do componente
+  const [productFilter, setProductFilter] = useState<string>("");
 
   const fetchCategories = async () => {
     const categoriesData = await getCategories();
@@ -39,13 +40,41 @@ export default function Home() {
     fetchProducts();
   }, []);
 
+  const filterProducts = async () => {
+    const response = await getProducts();
+    const normalizeFilter = productFilter
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+    const newProductsList = response.filter((item: Product) =>
+      item.name
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .includes(normalizeFilter)
+    );
+    setProducts(newProductsList);
+  };
+
+  useEffect(() => {
+    filterProducts();
+  }, [productFilter]);
+
   const [state, setState] = useState();
   return (
     <Center flexDir="column">
       <Heading pt="2rem">Bem vindo ao DevShop</Heading>
       <Group attached w="4xl" mt="2rem ">
-        <Input placeholder="Busque por..." />
-        <Button bg="bg.subtle" variant="outline">
+        <Input
+          placeholder="Busque por..."
+          value={productFilter}
+          onChange={(e) => setProductFilter(e.target.value)}
+        />
+        <Button
+          bg="bg.subtle"
+          variant="outline"
+          onClick={() => setProductFilter((prev) => prev)}
+        >
           <IoIosSearch />
         </Button>
       </Group>
